@@ -7,3 +7,12 @@ npx create-react-app app-by-create-react-app
 cd app-by-create-react-app
 npm run start
 ```
+
+1. via Vite: 
+
+```bash
+npm create vite@latest app-by-create-vite-latest
+cd app-by-create-vite-latest
+npm install
+npm run dev
+```
