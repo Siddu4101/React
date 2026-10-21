@@ -6,11 +6,11 @@ function BackgrondChanger(){
 
      return <> <h1>2. This is a backround changer example</h1>
     <div className="text-white min-h-screen p-4" id="back" style={{backgroundColor: bgColor}}>
-    <button className="bg-green-700 border-black border-2 rounded-sm px-3 py-2" onClick={()=>changeBg("green")}>Green</button>
-    <button className="bg-red-700  border-black border-2 rounded-sm px-3 py-2 " onClick={()=>changeBg("red")}>Red</button>
-    <button className="bg-blue-700  border-black border-2 rounded-sm px-3 py-2" onClick={()=>changeBg("blue")}>Blue</button>
-    <button className="bg-black border-black border-2 rounded-sm px-3 py-2"  onClick={()=>changeBg("black")}>Black</button>
-    <button className="bg-yellow-700  border-black border-2 rounded-sm px-3 py-2" onClick={()=>changeBg("yellow")}>Yellow</button>
+    <button className="bg-green-700 border-black border-2 rounded-xl p-2 m-2" onClick={()=>changeBg("green")}>Green</button>
+    <button className="bg-red-700  border-black border-2 rounded-xl p-2 m-2 " onClick={()=>changeBg("red")}>Red</button>
+    <button className="bg-blue-700  border-black border-2 rounded-xl p-2 m-2" onClick={()=>changeBg("blue")}>Blue</button>
+    <button className="bg-black border-black border-2 rounded-xl p-2 m-2"  onClick={()=>changeBg("black")}>Black</button>
+    <button className="bg-yellow-300  border-black border-2 rounded-xl p-2 m-2" onClick={()=>changeBg("yellow")}>Yellow</button>
     </div>
     </>
 
@@ -23,11 +23,11 @@ function BackgrondChanger(){
     return<>
     <h1>2. This is a backround changer example</h1>
     <div className="text-white min-h-screen p-4" id="back" style={{backgroundColor: 'violet'}}>
-    <button className="bg-green-700 border-black border-2 rounded-sm px-3 py-2" onClick={()=>changeBg("green")}>Green</button>
-    <button className="bg-red-700  border-black border-2 rounded-sm px-3 py-2 " onClick={()=>changeBg("red")}>Red</button>
-    <button className="bg-blue-700  border-black border-2 rounded-sm px-3 py-2" onClick={()=>changeBg("blue")}>Blue</button>
-    <button className="bg-black border-black border-2 rounded-sm px-3 py-2"  onClick={()=>changeBg("black")}>Black</button>
-    <button className="bg-yellow-700  border-black border-2 rounded-sm px-3 py-2" onClick={()=>changeBg("yellow")}>Yellow</button>
+    <button className="bg-green-700 border-black border-2 rounded-xl p-2 m-2" onClick={()=>changeBg("green")}>Green</button>
+    <button className="bg-red-700  border-black border-2 rounded-xl p-2 m-2 " onClick={()=>changeBg("red")}>Red</button>
+    <button className="bg-blue-700  border-black border-2 rounded-xl p-2 m-2" onClick={()=>changeBg("blue")}>Blue</button>
+    <button className="bg-black border-black border-2 rounded-xl p-2 m-2"  onClick={()=>changeBg("black")}>Black</button>
+    <button className="bg-yellow-700  border-black border-2 rounded-xl p-2 m-2" onClick={()=>changeBg("yellow")}>Yellow</button>
     </div>
     </>
 
