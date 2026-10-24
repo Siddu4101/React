@@ -1,3 +1,4 @@
+import { PasswordGenerator } from "./hooks/simpleProject/PasswordGenerator"
 import UseCallBackExample from "./hooks/useCallBack/UseCallBackExample"
 import UseEffectExample from "./hooks/useEffect/UseEffectExample"
 import { UseRefExample } from "./hooks/useRef/UseRefExample"
@@ -13,7 +14,8 @@ function App() {
     <BackgrondChanger/><br /><br />
     <UseCallBackExample/> <br/><br/>
     <UseEffectExample/> <br /><br />
-    <UseRefExample/>
+    <UseRefExample/> <br /> <br />
+    <PasswordGenerator/>
     </>
   )
 }

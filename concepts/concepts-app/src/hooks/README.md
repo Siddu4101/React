@@ -120,11 +120,11 @@ export default function UseCallBackExample(){
     <button onClick={increment} className="border-pink-400 border-2 bg-pink-300 rounded-xl p-2 m-2">increment</button>
     <button onClick={greet} className="border-pink-400 border-2 bg-pink-300 rounded-xl p-2 m-2">Greet</button>
     <button onClick={greetWithRendere} className="border-pink-400 border-2 bg-pink-300 rounded-xl p-2 m-2">greetWithReRender</button>
-   </> 
-
+   </>
 
 }
 ```
+
 ---
 
 ## ⚡ 3. useEffect
@@ -226,3 +226,27 @@ export function UseRefExample(){
     </>
 }
 ```
+
+## 🔐 Password Generator Project
+
+[View `PasswordGenerator.jsx`](simpleProject/PasswordGenerator.jsx)
+
+Generates a password using the selected length and optional numbers or special characters, then lets you copy it.
+
+- 🧱 **`useState`** stores the password, length, and character options. For example, `passLength` starts at `8`, while the number and special-character options start as `false`.
+- 🔁 **`useEffect`** regenerates the password when an option or the length changes:
+
+  ```jsx
+  useEffect(() => {
+    generatePass();
+  }, [includeSpecialChar, includeNumber, passLength]);
+  ```
+
+- ⚙️ **`useCallback`** wraps `generatePass`. In the current code, no dependency array is provided, so the function is not memoized between renders.
+- 📋 **`useRef`** keeps a reference to the password input so its value can be selected and copied:
+
+  ```jsx
+  copyPass.current.select();
+  navigator.clipboard.writeText(copyPass.current.value);
+  ```
+
