@@ -6,7 +6,7 @@ function UseStateExample() {
   console.log(`The new counter val is ${count}`);
   return (
     <>
-      <h1>1. Update the counter using useState hook and also multiple updates on single click</h1>
+      <h1>1. UseStateExample: Update the counter using useState hook and also multiple updates on single click</h1>
       <h1>Hey the new counter value is {count}</h1>
       <button onClick={incrementVla} className="rounded-sm border-2 m-1 p-1 bg-green-500" >Increment</button>
       <button onClick={decrementVal} className="rounded-sm border-2 m-1 p-1 bg-red-500" >Increment</button>

@@ -1,8 +1,11 @@
-React does the rendering part on it's own, so if u try to use the normal var it won't trigger a re-render when the value changes. That's why we use hooks like useState to manage state in functional components.
+> ⚛️ React does the rendering part on it's own, so if u try to use the normal var it won't trigger a re-render when the value changes. That's why we use hooks like useState to manage state in functional components.
 
-Hooks: Functions that let you use state and other React features in functional components.
+> 🧩 **Hooks:** Functions that let you use state and other React features in functional components.
 
-1. UseState: Allows you to update and manage the state and re-render the component when the state changes.
+## 🪝 1. UseState:
+
+Allows you to update and manage the state and re-render the component when the state changes.
+
     [variable, setVariable] = useState(initialValue)
 
     // variable: current state value
@@ -42,10 +45,10 @@ function UseStateExample() {
 export default UseStateExample;
 ```
 
-NOTE:
+### 💡 NOTE:
 When u want to update the state multiple times on a single change like btn click then u need to use the callback function which gives you the previous state of the var and that u can update if u just update it directly on the var it won't work 
 
-Example:
+### 🧪 Example:
 ```jsx
   function incrementVal(){
     updateCount(count + 1);
@@ -58,14 +61,16 @@ Example:
   }
 ```
 
-## Virtual DOM
+## 🧠 Virtual DOM
 
-The **Virtual DOM** is a lightweight representation of the actual DOM. React optimizes updates by comparing the new Virtual DOM with the previous one and applying only the necessary changes to the real DOM. This process, called **reconciliation**, helps improve performance by minimizing direct DOM manipulations.
+🌐 The **Virtual DOM** is a lightweight representation of the actual DOM. React optimizes updates by comparing the new Virtual DOM with the previous one and applying only the necessary changes to the real DOM. This process, called **reconciliation**, helps improve performance by minimizing direct DOM manipulations.
 
 
-## Getting the event in React
-Like normal JS we won't get the elements direclt on the event it will return a SyntheticEvent which is a wrapper around the native event provided by React. so u need to get the event by accessing `event.target` or `event.currentTarget` depending on your use case.
-Example:
+## 🎯 Getting the event in React
+
+🎟️ Like normal JS we won't get the elements direclt on the event it will return a SyntheticEvent which is a wrapper around the native event provided by React. so u need to get the event by accessing `event.target` or `event.currentTarget` depending on your use case.
+
+### 🧪 Example:
 ```jsx
 <>
   <button
@@ -78,14 +83,17 @@ Example:
 </>
 ```
 
+---
 
-2. useCallBack: 
+## 🔁 2. useCallBack:
+
 The **useCallback** hook returns a memoized version of the callback function that only changes if one of the dependencies has changed. It is useful to prevent unnecessary re-creations of functions, especially when passing them as props to child components.
+
 Basically it won't recreate the function on every render unless its dependencies change.
 
 This is mainly helpful when u r passing the function as a prop to child components to prevent unnecessary re-renders of those child components.(This we will see in the next examples with useMemo and React.memo)
 
-Example:
+### 🧪 Example:
 ```jsx
 import { useCallback, useState } from "react"
 
@@ -115,5 +123,58 @@ export default function UseCallBackExample(){
    </> 
 
 
+}
+```
+---
+
+## ⚡ 3. useEffect
+
+🧩 This hook is effective when u want to render somethig based on some effect of the var/func changes if there is change on these then only rerender else no need and NOTE: This hook executes after ur render of the page
+
+📋 This has 3 versions
+
+- 🔁 **without any dep array:** This acts as a normal function but runs after the render is done for each rerender
+- 🚀 **with empty dep array** (`[]`): This will runs only once after the first render and never reexecutes
+- 🎯 **with dep** (`[count]`): based on the dep var/func/obj if any change is occur then thie effect hook will run after the render
+```jsx
+import { useEffect, useState } from "react";
+
+export default function UseEffectExample() {
+  let [count, updateCount] = useState(0);
+
+  /* use effect without  dependecy array */
+  useEffect(() => {
+    console.log(
+      "Use effect without dep array and it acts as a normal fucntion which runs after each rerender completed",
+    );
+  });
+
+  console.log("This is written after the useEffect function but prints before it that because useEffect runs after the render is complete")
+
+  useEffect(() => {
+    console.log(
+      "Use effect with empty dep array and it runs only once when the first render is complete for subsequent render it won't be executed since no dep",
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(
+      "Use effect with count as a dep and it runs when the count get changed",
+    );
+  }, [count]);
+
+  function incrementCount(){
+    updateCount(count + 1)
+  }
+
+  return (
+    <>
+      <h1>3.useEffect Example: Usage of the useffect</h1>
+        <h3>The new count value is {count}</h3> <br />
+      <button className="border-purple-800 border-2 bg-cyan-500 rounded-3xl p-2 m-2  accent-lime-500" onClick={incrementCount}>
+        Increment count
+      </button>
+    </>
+  );
 }
 ```

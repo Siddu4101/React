@@ -18,7 +18,7 @@ export default function UseCallBackExample(){
    },[count])
 
    return <>
-    <h1>3. Use call back Hook example</h1>
+    <h1>2.UseCallback Example: Use call back Hook example</h1>
     <h3>The new count value is {count}</h3>
     <button onClick={increment} className="border-pink-400 border-2 bg-pink-300 rounded-xl p-2 m-2">increment</button>
     <button onClick={greet} className="border-pink-400 border-2 bg-pink-300 rounded-xl p-2 m-2">Greet</button>
