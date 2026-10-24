@@ -1,5 +1,6 @@
 import UseCallBackExample from "./hooks/useCallBack/UseCallBackExample"
 import UseEffectExample from "./hooks/useEffect/UseEffectExample"
+import { UseRefExample } from "./hooks/useRef/UseRefExample"
 import BackgrondChanger from "./hooks/useState/BackgroundChanger"
 import UseStateExample from "./hooks/useState/UseStateHook"
 
@@ -11,7 +12,8 @@ function App() {
     <UseStateExample/><br /><br />
     <BackgrondChanger/><br /><br />
     <UseCallBackExample/> <br/><br/>
-    <UseEffectExample/>
+    <UseEffectExample/> <br /><br />
+    <UseRefExample/>
     </>
   )
 }
