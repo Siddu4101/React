@@ -1,3 +1,4 @@
+import CurrencyConvertor from "./component-reusage/CurrencyConvertor"
 import { PasswordGenerator } from "./hooks/simpleProject/PasswordGenerator"
 import UseCallBackExample from "./hooks/useCallBack/UseCallBackExample"
 import UseEffectExample from "./hooks/useEffect/UseEffectExample"
@@ -10,12 +11,13 @@ function App() {
   return (
     <>
     <h1 className="text-2xl font-bold">Hello</h1>
-    <UseStateExample/><br /><br />
-    <BackgrondChanger/><br /><br />
-    <UseCallBackExample/> <br/><br/>
-    <UseEffectExample/> <br /><br />
-    <UseRefExample/> <br /> <br />
-    <PasswordGenerator/>
+    <UseStateExample/><br /><br /><hr /><hr /><br/>
+    <BackgrondChanger/><br /><br /><hr /><hr /><br/>
+    <UseCallBackExample/> <br/><br/><hr /><hr /><br/>
+    <UseEffectExample/> <br /><br /><hr /><hr /><br/>
+    <UseRefExample/> <br /> <br /><hr /><hr /><br/>
+    <PasswordGenerator/> <br /><br /><hr /><hr /><br/>
+    <CurrencyConvertor/><hr /><hr /><br/>
     </>
   )
 }
