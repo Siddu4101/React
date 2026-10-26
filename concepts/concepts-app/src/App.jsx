@@ -6,6 +6,50 @@ import { UseRefExample } from "./hooks/useRef/UseRefExample"
 import BackgrondChanger from "./hooks/useState/BackgroundChanger"
 import UseStateExample from "./hooks/useState/UseStateHook"
 
+import Layout from "./react-router/pages/LayOut"
+import Home from "./react-router/pages/Home"
+import Contact from "./react-router/pages/Contact"
+import About from "./react-router/pages/About"
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
+import User from "./react-router/pages/User"
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" Component={Layout}>
+      <Route index Component={Home}/>
+      <Route path="about" Component={About}/>
+      <Route path="contact" Component={Contact}/>
+      <Route path="user/:userId" Component={User}/>
+    </Route>
+  )
+)
+
+/* OR */
+
+// const router = createBrowserRouter([
+//   {
+//     path:"/",
+//     element:<Layout/>,
+//     children:[
+//     {
+//       path:"",
+//       element: <Home/>
+//     },
+//     {
+//       path:"/about",
+//       element:<About/>
+//     },
+//     {
+//       path:"/contact",
+//       element: <Contact/>
+//     },
+//     {
+//       path:"/user/:userId",
+//       element: <User/>
+//     }]
+//   }
+// ])
+
 function App() {
 
   return (
@@ -18,6 +62,8 @@ function App() {
     <UseRefExample/> <br /> <br /><hr /><hr /><br/>
     <PasswordGenerator/> <br /><br /><hr /><hr /><br/>
     <CurrencyConvertor/><hr /><hr /><br/>
+    {/* React router example */}
+    <RouterProvider router={router}/>
     </>
   )
 }
