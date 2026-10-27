@@ -12,6 +12,8 @@ import Contact from "./react-router/pages/Contact"
 import About from "./react-router/pages/About"
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import User from "./react-router/pages/User"
+import UiWithoutContext from "./context/withoutContext/UiWithoutContext"
+import UiWithContext from "./context/withContext/UiWithContext"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,9 +63,12 @@ function App() {
     <UseEffectExample/> <br /><br /><hr /><hr /><br/>
     <UseRefExample/> <br /> <br /><hr /><hr /><br/>
     <PasswordGenerator/> <br /><br /><hr /><hr /><br/>
-    <CurrencyConvertor/><hr /><hr /><br/>
+    <CurrencyConvertor/> <br /><br /><hr /><hr /><br/>
     {/* React router example */}
-    <RouterProvider router={router}/>
+    <RouterProvider router={router}/> <br /><br /><hr /><hr /><br/>
+    {/* Context usage example */}
+    <UiWithoutContext/><br /><br /><br/>
+    <UiWithContext/> <br /><br /><hr /><hr /><br/>
     </>
   )
 }
