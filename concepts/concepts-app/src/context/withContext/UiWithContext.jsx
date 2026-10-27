@@ -6,6 +6,10 @@ export default function UiWithContext() {
     name: "Siddu",
     role: "Software Engineer",
   };
+
+  let user2 = {
+    name:"Ram"
+  }
   return (
     <>
       <h2 className="text-xl">
@@ -17,7 +21,7 @@ export default function UiWithContext() {
           UI component(user('user.name =Siddu','user.role=Software Engineer'))
         </h1>
         {/* create context provider and wrap it inside the components to which u want to share the data */}
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={{user, user2}}>
           <NavBar/>
         </UserContext.Provider>
       </div>
