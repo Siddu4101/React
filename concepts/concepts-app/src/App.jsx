@@ -14,6 +14,7 @@ import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } f
 import User from "./react-router/pages/User"
 import UiWithoutContext from "./context/withoutContext/UiWithoutContext"
 import UiWithContext from "./context/withContext/UiWithContext"
+import CounterStoreProvider from "./redux-toolkit/CounterStoreProvider"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -69,6 +70,8 @@ function App() {
     {/* Context usage example */}
     <UiWithoutContext/><br /><br /><br/>
     <UiWithContext/> <br /><br /><hr /><hr /><br/>
+    {/* Redux example */}
+    <CounterStoreProvider/><br /><br /><hr /><hr /><br/>
     </>
   )
 }
