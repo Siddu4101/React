@@ -1,82 +1,134 @@
-1. What is Redux Toolkit?
-Redux Toolkit is a library that, helps to manage state in complex react applications.
-We can say it is a alternative to context api, but it is more powerful and provides a better way to manage state in react applications.
-With context you need to decide how to structure your state and how to update it, but with redux toolkit each feature has its own slice of state and the reducers and actions, and also supports selective subscription through useSelector hook so components can subscribe to specific parts of the store.
+# Redux Toolkit
 
-There are manily 4 parts of redux toolkit:
-1. Store: Holds the shared data and state of the application. It is a single source of truth for the entire application.
-2. Slice: A slice is a collection of reducer logic and actions for a specific feature of the application. Each slice has its own state, reducers, and actions.
-3. Action: Describes an event/change you want to make. Actions are plain JavaScript objects that have a type property and an optional payload property. 
-4. Reducer: A reducer is a pure function that takes the current state and an action as arguments and returns a new state. Reducers specify how the application's state changes in response to actions sent to the store.
+## What is Redux Toolkit?
 
-Example:
+Redux Toolkit (RTK) is the recommended way to write Redux logic. It helps manage shared application state in React apps, especially when that state needs to be read and updated by multiple components.
 
-1. Install:
+Context and Redux Toolkit can both share data with components. Redux Toolkit also gives you a consistent structure for organizing state and updates: feature-based slices, generated actions, reducers, and a central store. Components can select the part of the store they need with `useSelector` and update it by dispatching actions with `useDispatch`.
+
+## The main parts
+
+1. **Store** 🗄️ — Holds the application's shared state and acts as the single source of truth.
+2. **Slice** 🍰 — Groups the state and the reducer logic for one feature, such as a counter. `createSlice` also generates action creators for its reducers.
+3. **Action** 📩 — Describes an event or change to make. An action has a `type` and may have a `payload` containing data for the reducer. These are created by redux based on the reducer and exorted to call the reducer via these action name.
+4. **Reducer** 🔄 — Describes how state changes in response to an action. A reducer receives the current state and, when needed, the action; Redux Toolkit uses Immer so reducers can use simple mutation-style syntax while still producing immutable state updates no need of the useState simple object can also works fine and reflect .
+
+## Set up Redux Toolkit
+
+Install Redux Toolkit and React Redux:
+
 ```bash
 npm install @reduxjs/toolkit react-redux
-
 ```
-@reduxjs/toolkit: creates the store, slices, reducers, and actions.
-react-redux: connects Redux to React through Provider and hooks such as useSelector and useDispatch.
 
-2. creaete the slice:
-slice will have 3 sections:
-1. name: name of the slice
-2. initialState: initial state of the slice where we define the properties of the state and their initial values.
-3. reducers: an object that contains the reducer functions for the slice. Each reducer function takes the current state and an action(optional for input arguments) as arguments and returns a new state.
+- `@reduxjs/toolkit` provides helpers such as `createSlice` and `configureStore`.
+- `react-redux` connects the Redux store to React with `Provider` and hooks such as `useSelector` and `useDispatch`.
 
-and u will export the reducer of the slice to use it in the store creation and actions(reducers functions exported as a function for outside use and actions created by redux inbuilt).
+## 1. Create a slice
+
+A slice contains:
+
+- `name` — Identifies the slice and is used to form action types.
+- `initialState` — The starting state for this feature.
+- `reducers` — Functions that describe how the state changes. A reducer can read `state` and, if it needs input, `action.payload`.
+
 
 ```jsx
-import { createSlice } from '@reduxjs/toolkit';
-const slice = createSlice({
-  name: 'sliceName',
-  initialState: {
-    property1: value1,
-    property2: value2,
+import { createSlice } from '@reduxjs/toolkit'
+
+const CounterSlice = createSlice({
+  name: 'counterSlice', // Name of the slice used for the type defining for the actions(ex: counterSlice/increment)
+
+  initialState: { // The counter's starting state
+    count: 0
   },
+
   reducers: {
-    actionName: (state, action) => {
-      // update the state based on the action
+    increment: function (state) { // state is the current slice state
+      state.count += 1
     },
-    actionName2: (state) => {
-      // update the state
+    decrement: (state) => {
+      state.count -= 1
     },
-  },
-});
-export const {actionName, actionName2} = slice.actions; /* actions created by redux inbuilt */
-export default slice.reducer;
+    incrementByVal: function (state, action) { // action.payload contains the value to add as a arg
+      state.count += action.payload
+    }
+  }
+})
+
+export const { increment, decrement, incrementByVal } = CounterSlice.actions // The actions are created auto exporting to use in different cmponent which are under provider tag
+export const CounterSliceReducer = CounterSlice.reducer //for store creation
 ```
 
-3. create the store:
-The store is created using the `configureStore` function. It takes an object as an argument that contains the reducer(s) for the store.
+`CounterSlice.actions` contains the action creators generated for the reducer functions. Export them to dispatch actions from components. Export `CounterSlice.reducer` to register the slice in the store.
+
+For example, `incrementByVal(5)` creates an action whose payload is `5`. The `incrementByVal` reducer uses that value to update the count.
+
+## 2. Create the store
+
+Use `configureStore` to create the store and register each slice reducer. The key you choose here becomes the key used to access that slice's state in the child of the provider:
+
 ```jsx
-const store = configureStore({
+import { configureStore } from '@reduxjs/toolkit'
+import { CounterSliceReducer } from './CounterSlice'
+
+const CounterStore = configureStore({
   reducer: {
-    sliceName: sliceReducer,
-  },
-});
+    counterReduxStore: CounterSliceReducer //The key is used in providers child to access the store and by that u can aceess and update/reducer call of the reducer present in the value
+  }
+})
+
+export default CounterStore
 ```
 
-4. Provide the store to the application:
-The store is provided to the application using the `Provider`. The `Provider` component used as wrapper to the components where we want to share the data by making the store available to all components inside the provider.
+Because the reducer is registered as `counterReduxStore`, the counter state is available at `state.counterReduxStore` store. The `count` property is at `state.counterReduxStore.count`.
+
+## 3. Provide the store to React
+
+Wrap the components that need access to the store in React Redux's `Provider`, and pass the store through its `store` prop:
+
 ```jsx
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
+import CounterStore from './CounterStore'
+import CounterApp from './CounterApp'
 
-<Provider store={store}>
-  <App />
-</Provider>
+export default function CounterStoreProvider() {
+  return (
+    <Provider store={CounterStore}>
+      <CounterApp />
+    </Provider>
+  )
+}
 ```
 
-5. Use the store in components:
-To  use the store in components, we can use the `useSelector` and `useDispatch` hooks provided by react-redux.
-1. `useSelector`: This hook allows us to access the state from the store. We can pass a selector function to the `useSelector` hook that takes the state as an argument and returns the specific part of the state we want to access.
+`CounterApp` and its descendants can now read from and dispatch updates to `CounterStore`.
+
+## 4. Read and update state in a component
+
+Use `useSelector` to read the state you need. Its selector receives the whole Redux state and returns the specific value for the component. The component updates when that selected value changes.
+
+Use `useDispatch` to get the `dispatch` function, then dispatch an action creator from the slice:
+
 ```jsx
-const state = useSelector((state) => state.sliceName); /* sliceName is the name/key of the reducer passed in the store configuration from that u can access the state defined in the slice of that reducer */
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment, incrementByVal } from './CounterSlice'
+
+export default function CounterApp() {
+  const count = useSelector((state) => state.counterReduxStore.count)
+  const dispatch = useDispatch()
+
+  return (
+    <>
+      <h2>The counter value is {count}</h2>
+
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+      <button onClick={() => dispatch(incrementByVal(5))}>Increment by 5</button>
+    </>
+  )
+}
 ```
 
-2. `useDispatch`: This hook allows us to dispatch actions to the store. We can use the `useDispatch` hook to get the dispatch function and then call it with an action to update the state.
-```jsx
-const dispatch = useDispatch();
-dispatch(sliceActions.actionName(payload)); /* actionName is the name of the reducer function defined in the slice and payload is the data we want to send to the reducer function */
-```
+- `useSelector((state) => state.counterReduxStore.count)` reads `count`. The path uses the store key (`counterReduxStore`) followed by the slice state property (`count`).
+- `dispatch(increment())` and `dispatch(decrement())` dispatch actions without extra data.
+- `dispatch(incrementByVal(5))` dispatches an action with `5` in its payload, which the reducer uses to update the count.
